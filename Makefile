@@ -1,4 +1,4 @@
-EGISTRY 		:= smartspace
+REGISTRY 		:= smartspace
 NAME 			:= storage
 #VERSION 		:= 0.0.2
 
