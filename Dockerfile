@@ -6,7 +6,6 @@ RUN npm install --productio
 WORKDIR /LTE-Front_Back-
 
 COPY ["package.json", "package-lock.json*", "./"]
-n
 
 COPY . .
 
