@@ -1,4 +1,4 @@
-FROM node:12.18.1
+FROM node:latest
 ENV NODE_ENV=production
 RUN apt-get update && apt install nodejs npm
 RUN apt install -y docker-ce
