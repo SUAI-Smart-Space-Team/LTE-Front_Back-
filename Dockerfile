@@ -6,7 +6,7 @@ RUN apt install -y docker-ce
 WORKDIR /LTE-Front_Back-
 
 COPY ["package.json", "package-lock.json*", "./"]
-COPY ["./views", "config.js", "database.js",".dockerignore", "./"]
+COPY ["./views", "config.js", "database.js", "./"]
 COPY . .
 
 CMD [ "node", "server.js" ]
