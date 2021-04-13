@@ -9,4 +9,4 @@ COPY ["package.json", "package-lock.json*", "./"]
 COPY ["./views", "config.js", "database.js", "./"]
 COPY . .
 
-CMD [ "node", "server.js" ]
+CMD [ "node", "server.js 127.0.0.1 500002 50001" ]
