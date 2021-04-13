@@ -8,6 +8,8 @@ const client = dgram.createSocket('udp4');
 const client1 = dgram.createSocket('udp4');
 
 
+//2 arg - ip ansible, 3 arg - port ansible, 4 arg - port device
+
 const app = express();
 app.set('view engine','ejs');
 app.use(bodyParesr.urlencoded({extended: true}));
@@ -82,7 +84,7 @@ async function main(){
 			inter: Interface,
 			mes: Mes
 		};
-		client.send(JSON.stringify(mes), 50001, IpUser, (err) => {
+		client.send(JSON.stringify(mes), process.argv[4], IpUser, (err) => {
 			//client.close();
 		});
 	}
@@ -132,7 +134,7 @@ async function main(){
 			ip_in: req.body.ip1,
 			ip_out: req.body.ip2
 		};
-		client1.send(JSON.stringify(man), 3345, '172.20.10.4', (err) => {
+		client1.send(JSON.stringify(man), process.argv[3], process.argv[2], (err) => {
 			//client1.close();
 		});
 		res.redirect('/admin');
@@ -161,7 +163,7 @@ async function main(){
 			ip_in: req.body.ip1,
 			ip_out: req.body.ip2
 		};
-		client1.send(JSON.stringify(man), 3345, '172.20.10.4', (err) => {
+		client1.send(JSON.stringify(man), process.argv[3], process.argv[2], (err) => {
 			//client1.close();
 		});
 		Delete(tmp1);
