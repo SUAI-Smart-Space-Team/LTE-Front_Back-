@@ -2,7 +2,7 @@ FROM python
 ENV NODE_ENV=production
 RUN apt-get update 
 RUN apt -y --force-yes install nodejs npm
-RUN apt -y --force-yes install docker-ce
+#RUN apt -y --force-yes install docker-ce
 
 WORKDIR /LTE-Front_Back-
 
