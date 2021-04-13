@@ -7,9 +7,9 @@ pipeline {
              steps {
                script {
                    sh '''
-                   make image VERSION=LTE(front-back) BRANCH=null FILE=./Dockerfile
-                   make push VERSION=LTE(front-back)
-                   make pull VERSION=LTE(front-back) 
+                   make image VERSION=LTE_front-back BRANCH=null FILE=./Dockerfile
+                   make push VERSION=LTE_front-back
+                   make pull VERSION=LTE_front-back 
                    '''
                    
                }
