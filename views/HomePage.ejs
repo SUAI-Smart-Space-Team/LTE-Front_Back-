@@ -6,10 +6,15 @@
 </head>
 <body>
 	<form method="post">
-		<label>Введите id абонента</label>
-		<input type="text" name="id" placeholder='Активных абонентов: <%=b%>'><br><br>
+		<select name="id">
+		<% arr.forEach(function(item){ %>    
+		<option value=<%= item%>><%= item%></option>
+		<% });  %>
+		</select> 
+		<br><br>
 		<button type="submit">Выбрать</button>
 		<br><br>
+		
 	<a href="/list">Список всех отправленных данных</a>		
 	</form>
 </body>

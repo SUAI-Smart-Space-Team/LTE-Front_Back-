@@ -45,13 +45,13 @@ async function main(){
 	let arr2 = [];
 	let tmp;
 	let tmp1;
-	let numU;
+	let numU = [];
 	let IpUser;
 	let listIdUser = [];
-	getNumUsers();
+	//getNumUsers();
 	app.get('/', (req,res) => {
 		getNumUsers();
-		res.render('HomePage',{b:numU});
+		res.render('HomePage',{arr:numU});
 	});
 	app.post('/',(req,res) => {
 		tmp  = req.body.id;
@@ -61,6 +61,7 @@ async function main(){
 	
 	async function getNumUsers(){
 		numU = await bd.numUsers(conn);
+		console.log(numU[numU.length-1]);
 	}
 	
 	async function per()
@@ -81,7 +82,7 @@ async function main(){
 			inter: Interface,
 			mes: Mes
 		};
-		client.send(JSON.stringify(mes), 41234, IpUser, (err) => {
+		client.send(JSON.stringify(mes), 50001, IpUser, (err) => {
 			//client.close();
 		});
 	}
@@ -107,12 +108,11 @@ async function main(){
 	
 	app.get('/admin/add', (req,res) =>{
 		//getNumUsers();
-		console.log("id:"+numU);
 		res.render('Add');
 	});
 	app.post('/admin/add', (req,res) =>{
 		
-		console.log("id:"+(numU+1) +" ip1:"+ req.body.ip1 +" ip2:"+req.body.ip2+"lora:"+req.body.lora+"lte:"+req.body.lte+"wifi:"+req.body.wifi);
+		console.log("id:"+parseInt(numU[numU.length-1], 10)+1 +" ip1:"+ req.body.ip1 +" ip2:"+req.body.ip2+"lora:"+req.body.lora+"lte:"+req.body.lte+"wifi:"+req.body.wifi);
 		var l=0;
 		var w=0;
 		var lo=0;
@@ -127,19 +127,20 @@ async function main(){
 		}
 		
 		ADD(lo, l, w, req.body.ip1, req.body.ip2);
-		/*const man ={
-			ip1: req.body.ip1,
-			ip2: req.body.ip2
+		const man ={
+			action: "add_rule",
+			ip_in: req.body.ip1,
+			ip_out: req.body.ip2
 		};
-		client1.send(JSON.stringify(man), 41234, '192.168.0.101', (err) => {
-			client1.close();
-		});*/
+		client1.send(JSON.stringify(man), 3345, '172.20.10.4', (err) => {
+			//client1.close();
+		});
 		res.redirect('/admin');
 	});
 	
 	async function ADD(lora, lte,wifi, ip1, ip2){
 		//getNumUsers();
-		bd.Add(conn,(numU+1), lora, wifi, lte, ip1, ip2);
+		bd.Add(conn,parseInt(numU[numU.length-1], 10)+1, lora, wifi, lte, ip1, ip2);
 	}
 	
 	async function getListId(){
@@ -155,6 +156,14 @@ async function main(){
 	
 	app.post('/admin/delete',(req,res) => {
 		tmp1  = req.body.ID;
+		const man ={
+			action: "delete_rule",
+			ip_in: req.body.ip1,
+			ip_out: req.body.ip2
+		};
+		client1.send(JSON.stringify(man), 3345, '172.20.10.4', (err) => {
+			//client1.close();
+		});
 		Delete(tmp1);
 		listIdUser=[];
 		res.redirect('/admin');

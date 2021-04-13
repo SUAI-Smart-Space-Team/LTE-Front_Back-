@@ -2,8 +2,12 @@ module.exports = {
 	
 	numUsers: async function(conn){
 		let a = `SELECT id FROM mybd.users`;
+		let arr = [];
 		const [rows,fields] = await conn.execute(a);
-		return rows[rows.length-1]['id'];
+		for (let i = 0; i < rows.length; i++) { // выведет 0, затем 1, затем 2
+			arr.push(""+rows[i].id);
+		}
+		return arr;
 	},
 	
 	getInterfaces: async function(conn, id){
