@@ -2,6 +2,7 @@ FROM mysql:latest
 COPY COPY ["myDB.sql", "./"]
 RUN docker pull mysql:latest &&\
   docker run --name mybd -d -p3306:3306 -e MYSQL_ROOT_PASSWORD=1234 mysql:latest &&\
+  sleep 5 && \
   docker exec -it mybd mysql -uroot -p1234 -e "CREATE DATABASE mybd" &&\
   docker exec -i mybd mysql -uroot -p1234 mybd < myDB.sql
 
