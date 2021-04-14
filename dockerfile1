@@ -5,4 +5,3 @@ RUN docker pull mysql:latest &&\
   sleep 5 && \
   docker exec -it mybd mysql -uroot -p1234 -e "CREATE DATABASE mybd" &&\
   docker exec -i mybd mysql -uroot -p1234 mybd < myDB.sql
-
