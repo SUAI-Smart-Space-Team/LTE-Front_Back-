@@ -1,1 +1,17 @@
-
+pipeline {
+    agent {
+       label "deploy"
+    }
+    stages {
+          stage("connect") {
+             steps {
+               script {
+                   sh ''' 
+                   chmod +x ./Modules/show/cve.sh
+                   sudo docker run -i --rm -v $(pwd)/Modules/show/cve.sh:/Modules/show/cve.sh --entrypoint="/Modules/show/cve.sh" smartspace/storage:show
+                   ''' 
+               }
+             }
+          }
+        }
+}
