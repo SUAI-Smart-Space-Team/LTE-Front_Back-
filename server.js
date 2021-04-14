@@ -7,7 +7,6 @@ const dgram = require('dgram');//npm i dgram
 const client = dgram.createSocket('udp4');
 const client1 = dgram.createSocket('udp4');
 
-
 //2 arg - ip ansible, 3 arg - port ansible, 4 arg - port device
 
 const app = express();
@@ -50,6 +49,7 @@ async function main(){
 	let numU = [];
 	let IpUser;
 	let listIdUser = [];
+	let deletedIp = [];
 	//getNumUsers();
 	app.get('/', (req,res) => {
 		getNumUsers();
@@ -158,20 +158,23 @@ async function main(){
 	
 	app.post('/admin/delete',(req,res) => {
 		tmp1  = req.body.ID;
+		Delete(tmp1);
+	
+		listIdUser=[];
+		deletedIp=[];
+		res.redirect('/admin');
+	});
+	async function Delete(id){
+		deletedIp = await bd.Delete(conn, id);
+		console.log(deletedIp);
 		const man ={
 			action: "delete_rule",
-			ip_in: req.body.ip1,
-			ip_out: req.body.ip2
+			ip_in: deletedIp[0],
+			ip_out: deletedIp[1]
 		};
 		client1.send(JSON.stringify(man), process.argv[3], process.argv[2], (err) => {
 			//client1.close();
 		});
-		Delete(tmp1);
-		listIdUser=[];
-		res.redirect('/admin');
-	});
-	async function Delete(id){
-		bd.Delete(conn, id);
 	}
 	
 	app.listen(PORT);
