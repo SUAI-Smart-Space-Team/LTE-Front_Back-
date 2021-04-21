@@ -29,7 +29,7 @@ module.exports = {
 	},
 	
 	Log: async function(conn, time, id, nameInt, CurMes){
-		let d = `Insert into mybd.Log(Moment, IdUser, Interface, Message) values ('${time}', ${id}, '${nameInt}', '${CurMes}')`;
+		let d = `Insert into mybd.log(Moment, IdUser, Interface, Message) values ('${time}', ${id}, '${nameInt}', '${CurMes}')`;
 		await conn.execute(d);
 	},
 	
@@ -44,27 +44,30 @@ module.exports = {
 	},
 	
 	getIp:async function(conn, Interface, Id){
-		let d = `SELECT IpIn FROM mybd.${Interface} WHERE IdUser = ${Id}`;
+		let d = `SELECT * FROM mybd.${Interface} WHERE IdUser = ${Id}`;
 		const [rows,fields] = await conn.execute(d);
 		//console.log(rows);
+		let arr = [];
 		console.log(rows[0].IpIn);
-		return rows[0].IpIn;
+		arr.push(rows[0].IpIn);
+		arr.push(rows[0].Port);
+		return arr;
 	},
 	
-	Add: async function(conn, id, Lora, Wifi, LTE, ip1, ip2){
-		let d = `Insert into mybd.Users(Id, LTE, LoRa, WiFi) values (${id}, ${LTE}, ${Lora}, ${Wifi})`;
+	Add: async function(conn, id, Lora, Wifi, LTE, ip1, ip2, port){
+		let d = `Insert into mybd.users(Id, LTE, LoRa, WiFi) values (${id}, ${LTE}, ${Lora}, ${Wifi})`;
 		console.log("id: "+id +" ip1: "+ ip1 +" ip2: "+ip2+" lora: "+Lora+" lte: "+LTE+" wifi: "+Wifi);
 		await conn.execute(d);
 		if(Lora ==1){
-			let c = `Insert into mybd.lora(IdUser, IpIn, IpOut) values ('${id}', '${ip1}', '${ip2}')`;
+			let c = `Insert into mybd.LoRa(IdUser, IpIn, IpOut, Port) values ('${id}', '${ip1}', '${ip2}', '${port}')`;
 			await conn.execute(c);
 		}
 		if(Wifi ==1){
-			let c = `Insert into mybd.wifi(IdUser, IpIn, IpOut) values ('${id}', '${ip1}', '${ip2}')`;
+			let c = `Insert into mybd.WiFi(IdUser, IpIn, IpOut, Port) values ('${id}', '${ip1}', '${ip2}', '${port}')`;
 			await conn.execute(c);
 		}
 		if(LTE ==1){
-			let c = `Insert into mybd.lte(IdUser, IpIn, IpOut) values ('${id}', '${ip1}', '${ip2}')`;
+			let c = `Insert into mybd.LTE(IdUser, IpIn, IpOut, Port) values ('${id}', '${ip1}', '${ip2}', '${port}')`;
 			await conn.execute(c);
 		}
 	},
@@ -75,37 +78,37 @@ module.exports = {
 		const [rows1,fields1] =  await conn.execute(a);
 		console.log(rows1);
 		if(rows1[0].LTE == 1){
-			let d1 = `SELECT * FROM mybd.lte WHERE IdUser=${id}`;
+			let d1 = `SELECT * FROM mybd.LTE WHERE IdUser=${id}`;
 			const [rows2,fields2] =  await conn.execute(d1);
 			console.log(rows2);
 			arr.push(""+rows2[0].IpIn);
 			arr.push(""+rows2[0].IpOut);
-			let d = `Delete FROM mybd.lte where IdUser= ${id}`;
+			let d = `Delete FROM mybd.LTE where IdUser= ${id}`;
 			await conn.execute(d);
 		}
 		if(rows1[0].LoRa==1){
 			if(rows1[0].LTE == 0){
-				let d1 = `SELECT * FROM mybd.lora WHERE IdUser=${id}`;
+				let d1 = `SELECT * FROM mybd.LoRa WHERE IdUser=${id}`;
 				const [rows2,fields2] =  await conn.execute(d1);
 				console.log(rows2);
 				arr.push(""+rows2[0].IpIn);
 				arr.push(""+rows2[0].IpOut);
 			}
 		
-			let e = `Delete FROM mybd.lora where IdUser= ${id}`;
+			let e = `Delete FROM mybd.LoRa where IdUser= ${id}`;
 			await conn.execute(e);
 			
 		}
 		if(rows1[0].WiFi==1)
 		{
 			if(rows1[0].LTE == 0 && rows1[0].LoRa == 0){
-				let d1 = `SELECT * FROM mybd.wifi WHERE IdUser=${id}`;
+				let d1 = `SELECT * FROM mybd.WiFi WHERE IdUser=${id}`;
 				const [rows2,fields2] =  await conn.execute(d1);
 				console.log(rows2);
 				arr.push(""+rows2[0].IpIn);
 				arr.push(""+rows2[0].IpOut);
 			}
-			let c = `Delete FROM mybd.wifi where IdUser= ${id}`;
+			let c = `Delete FROM mybd.WiFi where IdUser= ${id}`;
 			await conn.execute(c);
 		}
 		let k = `Delete FROM mybd.users where Id= ${id}`;

@@ -13,14 +13,26 @@
 		<label>Введите внутренний ip-адрес</label>
 		<input type="text" name="ip2" placeholder='Вида: 00.00.00.00'>
 		<br><br>
-		<label>Имеет ли пользователь интерфейс Lte?</label>
-		<input type="text" name="lte" placeholder='Введите yes, если имеет'>
+		<label>Введите порт</label>
+		<input type="text" name="port">
 		<br><br>
+		<label>Имеет ли пользователь интерфейс Lte?</label>
+		<select name="lte">
+       		<option value="yes">Yes</option>
+		<option value="no">No</option>
+       		 </select>
+        	<br><br>
 		<label>Имеет ли пользователь интерфейс LoRa?</label>
-		<input type="text" name="lora" placeholder='Введите yes, если имеет'>
+		<select name="lora">
+        	<option value="yes">Yes</option>
+		<option value="no">No</option>
+        	</select>
 		<br><br>
 		<label>Имеет ли пользователь интерфейс WiFi?</label>
-		<input type="text" name="wifi" placeholder='Введите yes, если имеет'>
+		<select name="wifi">
+	        <option value="yes">Yes</option>
+		<option value="no">No</option>
+	        </select>
 		<br><br>
 		<button type="submit">Отправить</button>
 	</form>

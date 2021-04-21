@@ -37,7 +37,7 @@ async function main(){//
 	let tmp;
 	let tmp1;
 	let numU = [];
-	let IpUser;
+	let IpUser = [];
 	let listIdUser = [];
 	let deletedIp = [];
 	
@@ -74,7 +74,7 @@ async function main(){//
 			inter: Interface,
 			mes: Mes
 		};
-		client.send(JSON.stringify(mes), process.argv[4], IpUser, (err) => {
+		client.send(JSON.stringify(mes), IpUser[1], IpUser[0], (err) => {
 			//client.close();
 		});
 	}
@@ -111,12 +111,12 @@ async function main(){//
 			l=1;
 		}
 		if(req.body.lora == 'yes'){
-			w=1;
-		}
-		if(req.body.wifi == 'yes'){
 			lo=1;
 		}
-		ADD(lo, l, w, req.body.ip1, req.body.ip2);
+		if(req.body.wifi == 'yes'){
+			w=1;
+		}
+		ADD(lo, l, w, req.body.ip1, req.body.ip2, req.body.port);
 		const man ={
 			action: "add_rule",
 			ip_in: req.body.ip1,
@@ -128,9 +128,13 @@ async function main(){//
 		res.redirect('/admin');
 	});
 	
-	async function ADD(lora, lte,wifi, ip1, ip2){// add id user, external ip, internal ip and intefaces in databse
+	async function ADD(lora, lte,wifi, ip1, ip2, port){// add id user, external ip, internal ip and intefaces in databse
 		//getNumUsers();
-		bd.Add(conn,parseInt(numU[numU.length-1], 10)+1, lora, wifi, lte, ip1, ip2);
+		if (numU[numU.length-1] == undefined){
+			bd.Add(conn,1, lora, wifi, lte, ip1, ip2, port);
+		} else {
+			bd.Add(conn,parseInt(numU[numU.length-1], 10)+1, lora, wifi, lte, ip1, ip2, port);
+		}
 	}
 	
 	async function getListId(){// returns list users id
