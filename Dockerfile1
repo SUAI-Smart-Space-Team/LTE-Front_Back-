@@ -1,15 +1,10 @@
 FROM python
-ENV NODE_ENV=production
-RUN sudo apt update &&\
-sudo apt install nodejs npm &&\
-sudo npm install express &&\
-sudo npm install body-parser &&\
-sudo npm install mysql2 &&\
-sudo npm install dgram
 
-WORKDIR /server
+RUN sudo mysqladmin create mybd &&\
+mysql -u root -p mybd < TEST.sql &&\
+sudo mysql -u root -p &&\
+CREATE USER 'user'@'localhost' IDENTIFIED BY '1234'; &&\
+GRANT ALL PRIVILEGES ON mybd.* TO 'user'@'localhost'; &&\
+FLUSH PRIVILEGES;
 
-COPY ["./views", "config.js", "database.js", "./"]
-COPY . .
-
-CMD [ "node", "server.js 127.0.0.1 500002" ]
+WORKDIR /WHN-Front-Back
