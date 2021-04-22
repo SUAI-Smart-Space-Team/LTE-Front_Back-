@@ -10,4 +10,5 @@ COPY ["./views", "config.js", "database.js", "./"]
 COPY . .
 
 RUN npm install
-CMD [ "node", "server.js 10.228.0.237 500002" ]
+#CMD [ "node", "server.js 10.228.0.237 500002" ]
+CMD [ "node", "server.js" ]
