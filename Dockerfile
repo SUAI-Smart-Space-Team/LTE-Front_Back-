@@ -1,6 +1,6 @@
 FROM python
 ENV NODE_ENV=production
-RUN sudo apt update && sudo apt install nodejs npm 
+RUN apt update && sudo apt install nodejs npm 
 
 WORKDIR /WHN-Front-Back
 
