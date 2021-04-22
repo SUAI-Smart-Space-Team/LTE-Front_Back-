@@ -13,4 +13,5 @@ These functions are implemented through the user and administrator sites.
 The database has a description of all devices, that is, the device ID and interfaces available to this subscriber.
 
 Component communication scheme:
+
 ![схема](https://user-images.githubusercontent.com/57037988/115722622-d8e91b00-a387-11eb-95c1-00304c43f1c7.jpg)
