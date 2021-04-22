@@ -2,6 +2,7 @@ The created API has such functions as:
 - Handling interfaces(Can transmit data to specific devices via interfaces)
 - Mapping internal and external IP addresses
 - Add / Remove devices
+
 - Receiving control commands
 These functions are implemented through the user and administrator sites.
 User site – the user can select the ID of the subscriber to whom they want to send the message. Next, the transfer interfaces available to this subscriber are loaded for it. The user selects the desired interface and writes the message they want to send.
