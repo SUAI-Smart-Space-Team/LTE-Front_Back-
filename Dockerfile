@@ -1,16 +1,10 @@
-FROM python
-ENV NODE_ENV=production
-RUN apt-get update
-RUN apt -y --force-yes install nodejs npm
-
+FROM node:latest
 WORKDIR /WHN-Front-Back
-RUN mkdir views 
+RUN mkdir views
 COPY ./views /WHN-Front-Back/views
-COPY ["package.json",  "./"]
-#COPY ["./views", "config.js", "database.js", "./"]
+COPY package*.json ./
+RUN npm install
 COPY ["config.js", "database.js", "./"]
 COPY . .
-
-RUN npm install
-#CMD [ "node", "server.js 10.228.0.237 500002" ]
-CMD [ "node", "server.js" ]
+EXPOSE 8080
+CMD ["node", "server.js"]
