@@ -1,4 +1,4 @@
-FROM node:latest
+FROM python
 ENV NODE_ENV=production
 RUN apt-get update
 RUN apt -y --force-yes install nodejs npm
