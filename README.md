@@ -19,11 +19,20 @@ Component communication scheme:
 ###The sequence of commands for deploying this module:
 
 To install the front-back, you need to perform the following operations:
-1) clone the repository
-2) sudo apt update
-3) sudo apt install nodejs
-4) sudo apt install npm
-5) sudo npm install express —save
-6) sudo npm install body-parser —save
-7) sudo npm install mysql2 —save
-8) sudo npm install dgram —save
+- clone the repository
+- sudo apt update
+- sudo apt install nodejs
+- sudo apt install npm
+- sudo npm install express —save
+- sudo npm install body-parser —save
+- sudo npm install mysql2 —save
+- sudo npm install dgram —save
+
+To import the database, follow these steps:
+- sudo mysqladmin create mybd
+- mysql -u root -p mybd < TEST.sql
+- sudo mysql -u root -p
+- CREATE A USER 'user' @ 'localhost' IDENTIFIED AS '1234';
+- GRANT ALL PRIVILEGES TO mybd.* "user" @ " localhost";
+- FLASH PRIVILEGES;
+Next, exit MySQL in the application and run "node server.js "ansible ip address" "ansible port address""
