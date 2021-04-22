@@ -40,3 +40,39 @@ Next, exit MySQL in the application and run "node server.js "ansible ip address"
 ### Errors that occurred when running the application on an empty machine:
 - The inability to update npm to the current version. As a result, it is not possible to run the "npm init" command to automatically generate all the dependencies available in the package.json and package-lock.json
 - When importing the database from the dump, it became necessary to create a new user on the mysql server and add privileges to use the imported database
+
+### Example of operation
+
+Start the program.
+
+The database is empty:
+
+![1](https://user-images.githubusercontent.com/57037988/115724496-aa6c3f80-a389-11eb-9f3b-3f77e8c086fb.jpg)
+
+Next, run the application:
+
+![2](https://user-images.githubusercontent.com/57037988/115724574-bd7f0f80-a389-11eb-9cdb-7a6c6d64798e.jpg)
+
+The user's site has no active users:
+
+![3](https://user-images.githubusercontent.com/57037988/115724648-d091df80-a389-11eb-94c0-fd4a62f20c58.jpg)
+
+Admin home page:
+
+![4](https://user-images.githubusercontent.com/57037988/115724807-f323f880-a389-11eb-88ed-38ad89a22f5c.jpg)
+
+Add a new user:
+
+![5](https://user-images.githubusercontent.com/57037988/115724946-151d7b00-a38a-11eb-88f6-f6ec7ec74cb6.jpg)
+
+There is one user on the user's site that we can send a message to:
+
+![6](https://user-images.githubusercontent.com/57037988/115725069-31211c80-a38a-11eb-99e6-f2294c95fd8e.jpg)
+
+We will send a message to the active user:
+
+![7](https://user-images.githubusercontent.com/57037988/115725141-426a2900-a38a-11eb-8e3a-eccb7821b399.jpg)
+
+It is also possible to remove the user from the admin site:
+
+![8](https://user-images.githubusercontent.com/57037988/115725241-57df5300-a38a-11eb-91af-17ba6cad7e51.jpg)
