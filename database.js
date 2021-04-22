@@ -1,5 +1,13 @@
+/**
+ * Database queries.
+ * @module Database/queries
+ */
 module.exports = {
-	
+	/**
+	* Returns the number of active users in the system from database.
+	* @param {connection} conn - Database connection.
+	* @returns {array} arr - List users in database.
+	*/
 	numUsers: async function(conn){
 		let a = `SELECT id FROM heroku_00aeb0b4dc34359.users`;
 		let arr = [];
@@ -9,7 +17,12 @@ module.exports = {
 		}
 		return arr;
 	},
-	
+	/**
+	* Returns interfaces for a definite user from database.
+	* @param {connection} conn - Database connection.
+	* @param {number} id - User ID of which to return interfaces.
+	* @returns {array} arr - List user interfaces.
+	*/
 	getInterfaces: async function(conn, id){
 		let c = `SELECT * FROM heroku_00aeb0b4dc34359.users WHERE id=${id}`;
 		let arr = [];
@@ -28,11 +41,23 @@ module.exports = {
 		return arr;
 	},
 	
+	/**
+	* Writes a log to the database.
+	* @param {connection} conn - Database connection.
+	* @param {string} time - Current date and time.
+	* @param {number} id - User ID.
+	* @param {string} nameInt - Interface name.
+	* @param {string} CurMes - Sent message.
+	*/
 	Log: async function(conn, time, id, nameInt, CurMes){
 		let d = `Insert into heroku_00aeb0b4dc34359.log(Moment, IdUser, Interface, Message) values ('${time}', ${id}, '${nameInt}', '${CurMes}')`;
 		await conn.execute(d);
 	},
-	
+	/**
+	* Returns a list of users in the system. 
+	* @param {connection} conn - Database connection.
+	* @returns {array} arr - List users.
+	*/
 	getId: async function(conn){
 		let a = `SELECT id FROM heroku_00aeb0b4dc34359.users`;
 		let arr = [];
@@ -42,7 +67,13 @@ module.exports = {
 		}
 		return arr;
 	},
-	
+	/**
+	* Returns the ip address and port of the user.
+	* @param {connection} conn - Database connection.
+	* @param {string} Interface - Interface name.
+	* @param {number} Id - User ID.
+	* @returns {array} arr - User ip address and port.
+	*/
 	getIp:async function(conn, Interface, Id){
 		let d = `SELECT * FROM heroku_00aeb0b4dc34359.${Interface} WHERE IdUser = ${Id}`;
 		const [rows,fields] = await conn.execute(d);
@@ -53,7 +84,17 @@ module.exports = {
 		arr.push(rows[0].Port);
 		return arr;
 	},
-	
+	/**
+	* Add user to database.
+	* @param {connection} conn - Database connection.
+	* @param {number} id - User ID.
+	* @param {number} Lora - Presence of a LoRa interface.
+	* @param {number} LTE - Presence of a LTE interface.
+	* @param {number} Wifi - Presence of a Wi-Fi interface.
+	* @param {number} ip1 - External user ip address.
+	* @param {number} ip2 - Interior user ip address.
+	* @param {number} port - User port.
+	*/
 	Add: async function(conn, id, Lora, Wifi, LTE, ip1, ip2, port){
 		let d = `Insert into heroku_00aeb0b4dc34359.users(Id, LTE, LoRa, WiFi) values (${id}, ${LTE}, ${Lora}, ${Wifi})`;
 		console.log("id: "+id +" ip1: "+ ip1 +" ip2: "+ip2+" lora: "+Lora+" lte: "+LTE+" wifi: "+Wifi);
@@ -71,7 +112,11 @@ module.exports = {
 			await conn.execute(c);
 		}
 	},
-	
+	/**
+	* Delete user from database.
+	* @param {connection} conn - Database connection.
+	* @param {number} id - User ID.
+	*/
 	Delete: async function(conn, id){
 		let arr = [];
 		let a = `SELECT * FROM heroku_00aeb0b4dc34359.users WHERE id=${id}`;
