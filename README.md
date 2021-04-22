@@ -11,3 +11,6 @@ These functions are implemented through the user and administrator sites.
 - Admin Site-The administrator can add new users or delete users. To add a new user, the administrator will need to enter the external and internal IP addresses and list the interfaces available for this subscriber. After that, a new user is added to the database. To delete a subscriber, you only need to select the ID of the user to delete, and then the selected user is deleted from the database.
 
 The database has a description of all devices, that is, the device ID and interfaces available to this subscriber.
+
+Component communication scheme:
+![схема](https://user-images.githubusercontent.com/57037988/115722622-d8e91b00-a387-11eb-95c1-00304c43f1c7.jpg)
