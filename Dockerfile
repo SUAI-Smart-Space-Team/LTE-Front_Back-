@@ -1,7 +1,7 @@
-FROM node
+FROM python
 ENV NODE_ENV=production
 RUN apt-get update
-RUN apt -y --force-yes install nodejs 
+RUN apt -y --force-yes install nodejs npm
 
 WORKDIR /WHN-Front-Back
 RUN mkdir views 
