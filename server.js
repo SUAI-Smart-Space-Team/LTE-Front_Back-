@@ -117,14 +117,14 @@ async function main(){//
 			w=1;
 		}
 		ADD(lo, l, w, req.body.ip1, req.body.ip2, req.body.port);
-		const man ={
+		/*const man ={
 			action: "add_rule",
 			ip_in: req.body.ip1,
 			ip_out: req.body.ip2
 		};
 		client1.send(JSON.stringify(man), process.argv[3], process.argv[2], (err) => {
 			//client1.close();
-		});
+		});*/
 		res.redirect('/admin');
 	});
 	
@@ -159,14 +159,14 @@ async function main(){//
 	async function Delete(id){// delete user from database
 		deletedIp = await bd.Delete(conn, id);
 		console.log(deletedIp);
-		const man ={
+		/*const man ={
 			action: "delete_rule",
 			ip_in: deletedIp[0],
 			ip_out: deletedIp[1]
 		};
 		client1.send(JSON.stringify(man), process.argv[3], process.argv[2], (err) => {
 			//client1.close();
-		});
+		});*/
 	}
 	
 	app.listen(PORT);
