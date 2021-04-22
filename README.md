@@ -36,3 +36,7 @@ To import the database, follow these steps:
 - GRANT ALL PRIVILEGES TO mybd.* "user" @ " localhost";
 - FLASH PRIVILEGES;
 Next, exit MySQL in the application and run "node server.js "ansible ip address" "ansible port address""
+
+### Errors that occurred when running the application on an empty machine:
+- The inability to update npm to the current version. As a result, it is not possible to run the "npm init" command to automatically generate all the dependencies available in the package.json and package-lock.json
+- When importing the database from the dump, it became necessary to create a new user on the mysql server and add privileges to use the imported database
