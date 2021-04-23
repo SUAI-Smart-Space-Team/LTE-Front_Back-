@@ -43,6 +43,7 @@ Then you can build a docker image locally, follow these steps:
 - sudo docker build . -t app (your name image).
 - sudo docker run -d --net host app (your name image).
 - sudo docker logs <Id container>
+
 As a result, a docker container will be launched with access to the local database.
 
 ### Errors that occurred when running the application on an empty machine:
