@@ -45,7 +45,7 @@ async function main(){
 	/**  Establishing a connection to the database
 		*@memberof Main
 	*/
-	const conn = await mysql.createConnection(config);
+	//const conn = await mysql.createConnection(config);
 	/**  Define a set of variables that store the data returned by the database
 		*@memberof Main
 	*/
