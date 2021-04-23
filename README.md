@@ -32,8 +32,8 @@ To import the database, follow these steps:
 - sudo mysqladmin create mybd
 - mysql -u root -p mybd < TEST.sql
 - sudo mysql -u root -p
-- CREATE A USER 'user' @ 'localhost' IDENTIFIED AS '1234';
-- GRANT ALL PRIVILEGES TO mybd.* "user" @ " localhost";
+- CREATE USER 'user'@'localhost' IDENTIFIED BY '1234';
+- GRANT ALL PRIVILEGES TO mybd.* "user"@"localhost";
 - FLASH PRIVILEGES;
 Next, exit MySQL in the application and run "node server.js "ansible ip address" "ansible port address""
 
