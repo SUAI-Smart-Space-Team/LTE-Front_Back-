@@ -40,7 +40,7 @@ After you have to import a dump of the database, follow these steps:
 
 
 Then you can build a docker image locally, follow these steps:
-- sudo docker duild . -t app (your name image).
+- sudo docker build . -t app (your name image).
 - sudo docker run -d --net host app (your name image).
 - sudo docker logs <Id container>
 As a result, a docker container will be launched with access to the local database.
