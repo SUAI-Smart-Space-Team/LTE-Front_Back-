@@ -9,7 +9,7 @@ module.exports = {
 	* @returns {array} arr - List users in database.
 	*/
 	numUsers: async function(conn){
-		let a = `SELECT id FROM heroku_00aeb0b4dc34359.users`;
+		let a = `SELECT id FROM mybd.users`;
 		let arr = [];
 		const [rows,fields] = await conn.execute(a);
 		for (let i = 0; i < rows.length; i++) { // выведет 0, затем 1, затем 2
@@ -24,7 +24,7 @@ module.exports = {
 	* @returns {array} arr - List user interfaces.
 	*/
 	getInterfaces: async function(conn, id){
-		let c = `SELECT * FROM heroku_00aeb0b4dc34359.users WHERE id=${id}`;
+		let c = `SELECT * FROM mybd.users WHERE id=${id}`;
 		let arr = [];
 		const [rows1,fields1] =  await conn.execute(c);
 		console.log(rows1);
@@ -50,7 +50,7 @@ module.exports = {
 	* @param {string} CurMes - Sent message.
 	*/
 	Log: async function(conn, time, id, nameInt, CurMes){
-		let d = `Insert into heroku_00aeb0b4dc34359.log(Moment, IdUser, Interface, Message) values ('${time}', ${id}, '${nameInt}', '${CurMes}')`;
+		let d = `Insert into mybd.log(Moment, IdUser, Interface, Message) values ('${time}', ${id}, '${nameInt}', '${CurMes}')`;
 		await conn.execute(d);
 	},
 	/**
@@ -59,7 +59,7 @@ module.exports = {
 	* @returns {array} arr - List users.
 	*/
 	getId: async function(conn){
-		let a = `SELECT id FROM heroku_00aeb0b4dc34359.users`;
+		let a = `SELECT id FROM mybd.users`;
 		let arr = [];
 		const [rows,fields] = await conn.execute(a);
 		for (let i = 0; i < rows.length; i++) { // выведет 0, затем 1, затем 2
@@ -75,7 +75,7 @@ module.exports = {
 	* @returns {array} arr - User ip address and port.
 	*/
 	getIp:async function(conn, Interface, Id){
-		let d = `SELECT * FROM heroku_00aeb0b4dc34359.${Interface} WHERE IdUser = ${Id}`;
+		let d = `SELECT * FROM mybd.${Interface} WHERE IdUser = ${Id}`;
 		const [rows,fields] = await conn.execute(d);
 		//console.log(rows);
 		let arr = [];
@@ -96,19 +96,19 @@ module.exports = {
 	* @param {number} port - User port.
 	*/
 	Add: async function(conn, id, Lora, Wifi, LTE, ip1, ip2, port){
-		let d = `Insert into heroku_00aeb0b4dc34359.users(Id, LTE, LoRa, WiFi) values (${id}, ${LTE}, ${Lora}, ${Wifi})`;
+		let d = `Insert into mybd.users(Id, LTE, LoRa, WiFi) values (${id}, ${LTE}, ${Lora}, ${Wifi})`;
 		console.log("id: "+id +" ip1: "+ ip1 +" ip2: "+ip2+" lora: "+Lora+" lte: "+LTE+" wifi: "+Wifi);
 		await conn.execute(d);
 		if(Lora ==1){
-			let c = `Insert into heroku_00aeb0b4dc34359.LoRa(IdUser, IpIn, IpOut, Port) values ('${id}', '${ip1}', '${ip2}', '${port}')`;
+			let c = `Insert into mybd.LoRa(IdUser, IpIn, IpOut, Port) values ('${id}', '${ip1}', '${ip2}', '${port}')`;
 			await conn.execute(c);
 		}
 		if(Wifi ==1){
-			let c = `Insert into heroku_00aeb0b4dc34359.WiFi(IdUser, IpIn, IpOut, Port) values ('${id}', '${ip1}', '${ip2}', '${port}')`;
+			let c = `Insert into mybd.WiFi(IdUser, IpIn, IpOut, Port) values ('${id}', '${ip1}', '${ip2}', '${port}')`;
 			await conn.execute(c);
 		}
 		if(LTE ==1){
-			let c = `Insert into heroku_00aeb0b4dc34359.LTE(IdUser, IpIn, IpOut, Port) values ('${id}', '${ip1}', '${ip2}', '${port}')`;
+			let c = `Insert into mybd.LTE(IdUser, IpIn, IpOut, Port) values ('${id}', '${ip1}', '${ip2}', '${port}')`;
 			await conn.execute(c);
 		}
 	},
@@ -119,44 +119,44 @@ module.exports = {
 	*/
 	Delete: async function(conn, id){
 		let arr = [];
-		let a = `SELECT * FROM heroku_00aeb0b4dc34359.users WHERE id=${id}`;
+		let a = `SELECT * FROM mybd.users WHERE id=${id}`;
 		const [rows1,fields1] =  await conn.execute(a);
 		console.log(rows1);
 		if(rows1[0].LTE == 1){
-			let d1 = `SELECT * FROM heroku_00aeb0b4dc34359.LTE WHERE IdUser=${id}`;
+			let d1 = `SELECT * FROM mybd.LTE WHERE IdUser=${id}`;
 			const [rows2,fields2] =  await conn.execute(d1);
 			console.log(rows2);
 			arr.push(""+rows2[0].IpIn);
 			arr.push(""+rows2[0].IpOut);
-			let d = `Delete FROM heroku_00aeb0b4dc34359.LTE where IdUser= ${id}`;
+			let d = `Delete FROM mybd.LTE where IdUser= ${id}`;
 			await conn.execute(d);
 		}
 		if(rows1[0].LoRa==1){
 			if(rows1[0].LTE == 0){
-				let d1 = `SELECT * FROM heroku_00aeb0b4dc34359.LoRa WHERE IdUser=${id}`;
+				let d1 = `SELECT * FROM mybd.LoRa WHERE IdUser=${id}`;
 				const [rows2,fields2] =  await conn.execute(d1);
 				console.log(rows2);
 				arr.push(""+rows2[0].IpIn);
 				arr.push(""+rows2[0].IpOut);
 			}
 		
-			let e = `Delete FROM heroku_00aeb0b4dc34359.LoRa where IdUser= ${id}`;
+			let e = `Delete FROM mybd.LoRa where IdUser= ${id}`;
 			await conn.execute(e);
 			
 		}
 		if(rows1[0].WiFi==1)
 		{
 			if(rows1[0].LTE == 0 && rows1[0].LoRa == 0){
-				let d1 = `SELECT * FROM heroku_00aeb0b4dc34359.WiFi WHERE IdUser=${id}`;
+				let d1 = `SELECT * FROM mybd.WiFi WHERE IdUser=${id}`;
 				const [rows2,fields2] =  await conn.execute(d1);
 				console.log(rows2);
 				arr.push(""+rows2[0].IpIn);
 				arr.push(""+rows2[0].IpOut);
 			}
-			let c = `Delete FROM heroku_00aeb0b4dc34359.WiFi where IdUser= ${id}`;
+			let c = `Delete FROM mybd.WiFi where IdUser= ${id}`;
 			await conn.execute(c);
 		}
-		let k = `Delete FROM heroku_00aeb0b4dc34359.users where Id= ${id}`;
+		let k = `Delete FROM mybd.users where Id= ${id}`;
 		await conn.execute(k);
 		console.log(arr);
 		return arr;
