@@ -37,6 +37,8 @@ After you have to import a dump of the database, follow these steps:
 - CREATE USER 'user'@'localhost' IDENTIFIED BY '1234';
 - GRANT ALL PRIVILEGES ON mybd.* TO 'user'@'localhost';
 - FLASH PRIVILEGES;
+
+
 Then you can build a docker image locally, follow these steps:
 - sudo docker duild . -t app (your name image).
 - sudo docker run -d --net host app (your name image).
