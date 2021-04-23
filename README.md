@@ -28,14 +28,20 @@ To install the front-back, you need to perform the following operations:
 - sudo npm install mysql2 —save
 - sudo npm install dgram —save
 
-To import the database, follow these steps:
+Before starting the container, you need to install the mysql server locally.
+- sudo apt install mysql-server
+After you have to import a dump of the database, follow these steps:
 - sudo mysqladmin create mybd
 - mysql -u root -p mybd < TEST.sql
 - sudo mysql -u root -p
 - CREATE USER 'user'@'localhost' IDENTIFIED BY '1234';
-- GRANT ALL PRIVILEGES TO mybd.* "user"@"localhost";
+- GRANT ALL PRIVILEGES ON mybd.* TO 'user'@'localhost';
 - FLASH PRIVILEGES;
-Next, exit MySQL in the application and run "node server.js "ansible ip address" "ansible port address""
+Then you can build a docker image locally, follow these steps:
+- sudo docker duild . -t app (your name image).
+- sudo docker run -d --net host app (your name image).
+- sudo docker logs <Id container>
+As a result, a docker container will be launched with access to the local database.
 
 ### Errors that occurred when running the application on an empty machine:
 - The inability to update npm to the current version. As a result, it is not possible to run the "npm init" command to automatically generate all the dependencies available in the package.json and package-lock.json
